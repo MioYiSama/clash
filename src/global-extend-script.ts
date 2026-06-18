@@ -1,6 +1,8 @@
 // oxlint-disable-next-line no-unused-vars
 function main(config: any, profileName: string) {
-  return {
+  const defaultGroup = config["proxy-groups"][0].name;
+
+  const result = {
     ...config,
     dns: {
       enabled: true,
@@ -23,11 +25,11 @@ function main(config: any, profileName: string) {
       // RuleSet
       "RULE-SET,AI,US",
       "RULE-SET,China,DIRECT",
-      `RULE-SET,Global,${profileName}`,
+      `RULE-SET,Global,${defaultGroup}`,
       // Default
       "GEOIP,LAN,DIRECT",
       "GEOIP,CN,DIRECT",
-      `MATCH,${profileName}`,
+      `MATCH,${defaultGroup}`,
     ],
     "rule-providers": {
       AI: createRuleProvider("AI", "https://static.s3.mioyi.net/clash/ai.yaml"),
@@ -35,24 +37,31 @@ function main(config: any, profileName: string) {
       Global: createRuleProvider("Global", "https://static.s3.mioyi.net/clash/global.yaml"),
     },
   };
+
+  console.log(result);
+
+  return result;
 }
 
 function getUsProxyGroup(config: any) {
   const proxies: Array<string> = [];
 
   for (const proxy of config["proxies"]) {
-    const name = (proxy["name"] as string).toLowerCase();
+    const name = proxy["name"] as string;
+    const lower = name.toLowerCase();
 
     if (
-      name.includes("美国") ||
       name.includes("🇺🇸") ||
-      name.includes("us") ||
-      name.includes("america") ||
-      name.includes("united states")
+      name.includes("美国") ||
+      lower.includes("usa") ||
+      lower.includes("america") ||
+      lower.includes("united states")
     ) {
       proxies.push(name);
     }
   }
+
+  console.log("Collected US proxies: ", proxies);
 
   return { name: "US", type: "select", proxies };
 }
