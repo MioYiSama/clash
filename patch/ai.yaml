@@ -1,5 +1,8 @@
 payload:
+  - DOMAIN-KEYWORD,openai
   - DOMAIN-KEYWORD,codex
+  - DOMAIN-KEYWORD,anthropic
+  - DOMAIN-KEYWORD,anthropics
   - DOMAIN-KEYWORD,claude
   - DOMAIN-KEYWORD,notebooklm
   - DOMAIN-KEYWORD,openrouter
