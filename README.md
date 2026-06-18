@@ -9,13 +9,14 @@
 | 规则集 | 说明 | 文件 |
 | --- | --- | --- |
 | `ai` | OpenAI、Anthropic/Claude、Gemini、BardAI 等 AI 服务 | [`ai.yaml`](outputs/ai.yaml) · [`ai.list`](outputs/ai.list) |
-| `china` | SteamCN、国内游戏下载、ChinaMedia、中国大陆直连 | [`china.yaml`](outputs/china.yaml) · [`china.list`](outputs/china.list) |
-| `global` | Steam、国际游戏下载、GlobalMedia、国际代理 | [`global.yaml`](outputs/global.yaml) · [`global.list`](outputs/global.list) |
+| `china` | SteamCN、国内游戏下载、ChinaMedia、中国大陆直连及 Loyalsoldier `direct` | [`china.yaml`](outputs/china.yaml) · [`china.list`](outputs/china.list) |
+| `global` | Steam、国际游戏下载、GlobalMedia、国际代理及 Loyalsoldier `proxy`/`gfw` | [`global.yaml`](outputs/global.yaml) · [`global.list`](outputs/global.list) |
 
 规则来源：
 
 - [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)
 - [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community)
+- [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules)
 
 通过 jsDelivr CDN 拉取上游，合并、去重后输出。
 

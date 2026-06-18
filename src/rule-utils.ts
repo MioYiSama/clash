@@ -151,6 +151,11 @@ export function blackmatrix7(path: string): RuleSource {
   return () => fetchYaml(githubUrl("blackmatrix7/ios_rule_script", "master", `rule/Clash/${path}`));
 }
 
+/** Loyalsoldier/clash-rules 的 Clash 规则文件 */
+export function loyalsoldier(path: string): RuleSource {
+  return () => fetchYaml(githubUrl("Loyalsoldier/clash-rules", "release", `${path}.txt`));
+}
+
 /** v2fly/domain-list-community 的规则文件（自动解析 include 依赖） */
 export function v2fly(name: string): RuleSource {
   return () => fetchV2fly(name);

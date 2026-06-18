@@ -1,4 +1,4 @@
-import { blackmatrix7, buildRuleSet, v2fly, type RuleSet } from "./rule-utils.ts";
+import { blackmatrix7, buildRuleSet, loyalsoldier, v2fly, type RuleSet } from "./rule-utils.ts";
 import { logger } from "./logger.ts";
 
 const ruleSets: Array<RuleSet> = [
@@ -9,9 +9,6 @@ const ruleSets: Array<RuleSet> = [
       blackmatrix7("Claude/Claude_No_Resolve.yaml"),
       blackmatrix7("Gemini/Gemini_No_Resolve.yaml"),
       blackmatrix7("BardAI/BardAI_No_Resolve.yaml"),
-      v2fly("openai"),
-      v2fly("anthropic"),
-      v2fly("google-gemini"),
       v2fly("category-ai-!cn"),
     ],
   },
@@ -22,6 +19,7 @@ const ruleSets: Array<RuleSet> = [
       blackmatrix7("Game/GameDownloadCN/GameDownloadCN_No_Resolve.yaml"),
       blackmatrix7("ChinaMedia/ChinaMedia_No_Resolve.yaml"),
       blackmatrix7("China/China_Classical_No_Resolve.yaml"),
+      loyalsoldier("direct"),
     ],
   },
   {
@@ -31,6 +29,8 @@ const ruleSets: Array<RuleSet> = [
       blackmatrix7("Game/GameDownload/GameDownload_No_Resolve.yaml"),
       blackmatrix7("GlobalMedia/GlobalMedia_Classical_No_Resolve.yaml"),
       blackmatrix7("Global/Global_Classical_No_Resolve.yaml"),
+      loyalsoldier("proxy"),
+      loyalsoldier("gfw"),
     ],
   },
 ];
