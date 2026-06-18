@@ -151,9 +151,35 @@ export function blackmatrix7(path: string): RuleSource {
   return () => fetchYaml(githubUrl("blackmatrix7/ios_rule_script", "master", `rule/Clash/${path}`));
 }
 
-/** Loyalsoldier/clash-rules 的 Clash 规则文件 */
+/**
+ * 将 domain behavior 的单条裸域名转换为 classical 规则。
+ * `+.example.com` / `.example.com` -> `DOMAIN-SUFFIX,example.com`；
+ * 其余按精确匹配 -> `DOMAIN,example.com`。
+ */
+function domainEntryToClassical(entry: string): string {
+  const domain = entry.trim();
+  if (domain.startsWith("+.")) {
+    return `DOMAIN-SUFFIX,${domain.slice(2)}`;
+  }
+  if (domain.startsWith(".")) {
+    return `DOMAIN-SUFFIX,${domain.slice(1)}`;
+  }
+  return `DOMAIN,${domain}`;
+}
+
+/**
+ * 将一个 domain behavior 规则源（条目为裸域名而非 `TYPE,value` 的 classical 规则）
+ * 转换为 classical 格式，便于与其它 classical 源合并。可包裹任意 RuleSource。
+ */
+export function domainBehavior(source: RuleSource): RuleSource {
+  return async () => (await source()).map(domainEntryToClassical);
+}
+
+/** Loyalsoldier/clash-rules 的规则文件（domain behavior，自动转换为 classical） */
 export function loyalsoldier(path: string): RuleSource {
-  return () => fetchYaml(githubUrl("Loyalsoldier/clash-rules", "release", `${path}.txt`));
+  return domainBehavior(() =>
+    fetchYaml(githubUrl("Loyalsoldier/clash-rules", "release", `${path}.txt`)),
+  );
 }
 
 /** v2fly/domain-list-community 的规则文件（自动解析 include 依赖） */
