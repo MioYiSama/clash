@@ -116,7 +116,7 @@ function clashRuleToQuantumultX(rule: string): string | null {
   // 不支持的规则类型（如 PROCESS-NAME）直接跳过
   if (!qxType) return null;
 
-  return [qxType, ...parts.slice(1)].join(", ");
+  return [qxType, ...parts.slice(1)].join(",");
 }
 
 async function writeQuantumultX(name: string, payload: Array<string>) {
