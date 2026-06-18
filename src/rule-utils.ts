@@ -95,33 +95,41 @@ async function writeYaml(name: string, payload: Array<string>) {
 
 /** Clash 规则类型 -> QuantumultX 规则类型 */
 const QX_TYPE_MAP: Record<string, string> = {
-  DOMAIN: "host",
-  "DOMAIN-SUFFIX": "host-suffix",
-  "DOMAIN-KEYWORD": "host-keyword",
-  "DOMAIN-WILDCARD": "host-wildcard",
-  "IP-CIDR": "ip-cidr",
-  "IP-CIDR6": "ip6-cidr",
-  "IP6-CIDR": "ip6-cidr",
-  GEOIP: "geoip",
-  "USER-AGENT": "user-agent",
+  DOMAIN: "HOST",
+  "DOMAIN-SUFFIX": "HOST-SUFFIX",
+  "DOMAIN-KEYWORD": "HOST-KEYWORD",
+  "DOMAIN-WILDCARD": "HOST-WILDCARD",
+  "IP-CIDR": "IP-CIDR",
+  "IP-CIDR6": "IP6-CIDR",
+  "IP6-CIDR": "IP6-CIDR",
+  GEOIP: "GEOIP",
+  "USER-AGENT": "USER-AGENT",
 };
 
-/** 将一条 Clash 规则转换为 QuantumultX 格式，无法转换时返回 null */
-function clashRuleToQuantumultX(rule: string): string | null {
+/**
+ * 将一条 Clash 规则转换为 QuantumultX 格式，无法转换时返回 null。
+ * 格式为 TYPE,value,policy[,options]，例如 IP-CIDR,1.2.3.0/24,ai,no-resolve。
+ */
+function clashRuleToQuantumultX(rule: string, policy: string): string | null {
   const parts = rule.split(",").map((part) => part.trim());
   const type = parts[0]?.toUpperCase();
   if (!type) return null;
 
   const qxType = QX_TYPE_MAP[type];
-  // 不支持的规则类型（如 PROCESS-NAME）直接跳过
+  // 不支持的规则类型（如 PROCESS-NAME、DOMAIN-REGEX、IP-ASN）直接跳过
   if (!qxType) return null;
 
-  return [qxType, ...parts.slice(1)].join(",");
+  const value = parts[1];
+  if (!value) return null;
+  // 其余字段为 no-resolve 等选项，需放在策略之后
+  const options = parts.slice(2);
+
+  return [qxType, value, policy, ...options].join(",");
 }
 
 async function writeQuantumultX(name: string, payload: Array<string>) {
   const converted = toUnique(payload)
-    .map(clashRuleToQuantumultX)
+    .map((rule) => clashRuleToQuantumultX(rule, name))
     .filter((rule): rule is string => rule !== null);
   await writeFile(`outputs/${name}.list`, converted.join("\n") + "\n");
   logger.info(`[${name}] wrote outputs/${name}.list: ${converted.length} QuantumultX rules`);
