@@ -12,6 +12,17 @@
 
 规则来源：[blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)，通过 jsDelivr CDN 拉取。
 
+每个规则集同时输出 Clash（`<name>.yaml`）和 QuantumultX（`<name>.list`）两种格式。QuantumultX 格式可直接用于 `[filter_remote]` 远程规则订阅，类型映射如下（`PROCESS-NAME`、`DOMAIN-REGEX`、`IP-ASN` 等 QuantumultX 不支持的类型会被跳过）：
+
+| Clash            | QuantumultX     |
+| ---------------- | --------------- |
+| `DOMAIN`         | `host`          |
+| `DOMAIN-SUFFIX`  | `host-suffix`   |
+| `DOMAIN-KEYWORD` | `host-keyword`  |
+| `IP-CIDR`        | `ip-cidr`       |
+| `IP-CIDR6`       | `ip6-cidr`      |
+| `GEOIP`          | `geoip`         |
+
 ## 使用方式
 
 `src/global-extend-script.ts` 是配套的 Clash Profile Script，下载地址：
