@@ -3,7 +3,9 @@ name: build
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 19 * * *'
+    - cron: "0 19 * * *"
+  push:
+    branches: ["main"]
 
 jobs:
   build:
@@ -16,6 +18,7 @@ jobs:
           runtime: node@26
           version: 11.7.0
           install: true
+          cache: true
 
       - run: pnpm run build
 
