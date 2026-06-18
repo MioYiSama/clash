@@ -2,6 +2,8 @@ name: build
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 19 * * *'
 
 jobs:
   build:
@@ -20,6 +22,7 @@ jobs:
       - run: |
           aws s3 sync outputs/ s3://static/clash/ \
             --endpoint-url https://s3.mioyi.net \
+            --exclude "*.gitkeep" \
             --no-progress
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
