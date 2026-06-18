@@ -42,6 +42,7 @@ try {
   await Promise.all(ruleSets.map(buildRuleSet));
   logger.info(`done in ${((Date.now() - start) / 1000).toFixed(1)}s`);
 } catch (error) {
+  // oxlint-disable-next-line typescript/restrict-template-expressions
   logger.error(`generation failed: ${error instanceof Error ? error.message : error}`);
   process.exitCode = 1;
 }

@@ -1,6 +1,7 @@
 // oxlint-disable-next-line no-unused-vars
 function main(config: any, profileName: string) {
-  const defaultGroup = config["proxy-groups"][0].name;
+  const defaultProxyGroup = config["proxy-groups"][0];
+  const defaultProxyGroupName = defaultProxyGroup.name;
 
   const result = {
     ...config,
@@ -19,33 +20,30 @@ function main(config: any, profileName: string) {
       ],
     },
     "proxy-groups": [
-      config["proxy-groups"][0], // 默认组
+      defaultProxyGroup, // 默认组
       getUsProxyGroup(config), // US组
-    ],
-    rules: [
-      // SSH
-      "SRC-PORT,22,DIRECT",
-      "DST-PORT,22,DIRECT",
-      "IP-CIDR,47.242.86.203/32,DIRECT",
-      "IP-CIDR,115.220.1.205/32,DIRECT", // 健康义乌
-      "DOMAIN-SUFFIX,hf.co,DIRECT",
-      // RuleSet
-      "RULE-SET,AI,US",
-      "RULE-SET,China,DIRECT",
-      `RULE-SET,Global,${defaultGroup}`,
-      // Default
-      "GEOIP,LAN,DIRECT",
-      "GEOIP,CN,DIRECT",
-      `MATCH,${defaultGroup}`,
     ],
     "rule-providers": {
       AI: createRuleProvider("AI", "https://static.s3.mioyi.net/clash/ai.yaml"),
       China: createRuleProvider("China", "https://static.s3.mioyi.net/clash/china.yaml"),
       Global: createRuleProvider("Global", "https://static.s3.mioyi.net/clash/global.yaml"),
     },
+    rules: [
+      "SRC-PORT,22,DIRECT", // SSH
+      "DST-PORT,22,DIRECT", // SSH
+      "IP-CIDR,47.242.86.203/32,DIRECT", // mioyi.net
+      "IP-CIDR,115.220.1.205/32,DIRECT", // 健康义乌
+      "DOMAIN-SUFFIX,hf.co,DIRECT",
+      // RuleSet
+      "RULE-SET,AI,US",
+      "RULE-SET,China,DIRECT",
+      `RULE-SET,Global,${defaultProxyGroupName}`,
+      // Fallback
+      "GEOIP,LAN,DIRECT",
+      "GEOIP,CN,DIRECT",
+      `MATCH,${defaultProxyGroupName}`,
+    ],
   };
-
-  console.log(result);
 
   return result;
 }
@@ -55,8 +53,8 @@ function getUsProxyGroup(config: any) {
 
   for (const proxy of config["proxies"]) {
     const name = proxy["name"] as string;
-    const lower = name.toLowerCase();
 
+    const lower = name.toLowerCase();
     if (
       name.includes("🇺🇸") ||
       name.includes("美国") ||
