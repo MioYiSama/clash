@@ -7,13 +7,20 @@ function main(config: any, profileName: string) {
     dns: {
       enabled: true,
       "enhanced-mode": "redir-host",
-      nameserver: ["https://223.5.5.5/dns-query"],
-      fallback: ["https://1.1.1.1/dns-query", "https://8.8.8.8/dns-query"],
+      nameserver: [
+        "https://223.5.5.5/dns-query", // 阿里云DNS
+        "https://223.6.6.6/dns-query", // 阿里云备用
+      ],
+      fallback: [
+        "https://1.1.1.1/dns-query", // Cloudflare DNS
+        "https://8.8.8.8/dns-query", // Google 备用
+        "https://1.0.0.1/dns-query", // Cloudflare DNS
+        "https://8.8.4.4/dns-query", // Google 备用
+      ],
     },
     "proxy-groups": [
-      // ...config["proxy-groups"],
-      config["proxy-groups"][0],
-      getUsProxyGroup(config),
+      config["proxy-groups"][0], // 默认组
+      getUsProxyGroup(config), // US组
     ],
     rules: [
       // SSH
@@ -60,8 +67,6 @@ function getUsProxyGroup(config: any) {
       proxies.push(name);
     }
   }
-
-  console.log("Collected US proxies: ", proxies);
 
   return { name: "US", type: "select", proxies };
 }
