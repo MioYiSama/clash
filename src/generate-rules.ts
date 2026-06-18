@@ -12,8 +12,8 @@ const ruleSets: Array<RuleSet> = [
       v2fly("openai"),
       v2fly("anthropic"),
       v2fly("google-gemini"),
+      v2fly("category-ai-!cn"),
     ],
-    patch: true,
   },
   {
     name: "china",
