@@ -5,11 +5,11 @@ const ruleSets: Array<RuleSet> = [
   {
     name: "ai",
     sources: [
+      v2fly("category-ai-!cn"),
       blackmatrix7("OpenAI/OpenAI_No_Resolve.yaml"),
       blackmatrix7("Claude/Claude_No_Resolve.yaml"),
       blackmatrix7("Gemini/Gemini_No_Resolve.yaml"),
       blackmatrix7("BardAI/BardAI_No_Resolve.yaml"),
-      v2fly("category-ai-!cn"),
     ],
   },
   {
@@ -25,12 +25,13 @@ const ruleSets: Array<RuleSet> = [
   {
     name: "global",
     sources: [
+      loyalsoldier("tld-not-cn"),
+      loyalsoldier("gfw"),
       blackmatrix7("Steam/Steam_No_Resolve.yaml"),
       blackmatrix7("Game/GameDownload/GameDownload_No_Resolve.yaml"),
       blackmatrix7("GlobalMedia/GlobalMedia_Classical_No_Resolve.yaml"),
       blackmatrix7("Global/Global_Classical_No_Resolve.yaml"),
       loyalsoldier("proxy"),
-      loyalsoldier("gfw"),
     ],
   },
 ];
