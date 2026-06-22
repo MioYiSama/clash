@@ -7,13 +7,35 @@ function githubUrl(repo: string, branch: string, path: string) {
   return `https://cdn.jsdelivr.net/gh/${repo}@${branch}/${path}`;
 }
 
+function delay(ms: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
+const FETCH_MAX_RETRIES = 3;
+const FETCH_RETRY_BASE_DELAY = 1000;
+
 async function fetchText(url: string) {
   logger.debug(`fetch ${url}`);
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`fetch failed (${response.status}): ${url}`);
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= FETCH_MAX_RETRIES; attempt++) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`fetch failed (${response.status}): ${url}`);
+      }
+      return await response.text();
+    } catch (error) {
+      lastError = error;
+      if (attempt < FETCH_MAX_RETRIES) {
+        const wait = FETCH_RETRY_BASE_DELAY * attempt;
+        logger.warn(
+          `fetch attempt ${attempt}/${FETCH_MAX_RETRIES} failed, retrying in ${wait}ms: ${url}`,
+        );
+        await delay(wait);
+      }
+    }
   }
-  return await response.text();
+  throw lastError;
 }
 
 async function fetchYaml(url: string) {
