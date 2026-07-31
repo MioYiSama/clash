@@ -8,7 +8,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "tsdown && node src/generate-rules.ts"
+    "build": "tsdown && node src/generate-rules.ts",
+    "extend": "node src/extend-config.ts"
   },
   "dependencies": {
     "winston": "^3.19.0",

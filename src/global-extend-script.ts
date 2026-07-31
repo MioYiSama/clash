@@ -1,10 +1,28 @@
+function randomString(length = 32) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+
+  for (let i = 0; i < length; i++) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+
+  return result;
+}
+
 // oxlint-disable-next-line no-unused-vars
 function main(config: any, profileName: string) {
   const defaultProxyGroup = config["proxy-groups"][0];
   const defaultProxyGroupName = defaultProxyGroup.name;
 
+  const proxyGroupNames = config["proxy-groups"].map((group) => group.name);
+  defaultProxyGroup["proxies"] = defaultProxyGroup["proxies"].filter(
+    (proxy: string) => !proxyGroupNames.includes(proxy),
+  );
+
   const result = {
     ...config,
+    "external-controller": "0.0.0.0:9090",
+    secret: randomString(),
     dns: {
       enabled: true,
       "enhanced-mode": "redir-host",
