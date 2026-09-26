@@ -6,6 +6,7 @@ const ruleSets: Array<RuleSet> = [
     name: "ai",
     sources: [
       v2fly("category-ai-!cn"),
+      v2fly("google"),
       blackmatrix7("OpenAI/OpenAI_No_Resolve.yaml"),
       blackmatrix7("Claude/Claude_No_Resolve.yaml"),
       blackmatrix7("Gemini/Gemini_No_Resolve.yaml"),
