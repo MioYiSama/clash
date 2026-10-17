@@ -9,15 +9,25 @@ function main(config: any, _profileName: string) {
     dns: {
       enable: true,
       "enhanced-mode": "fake-ip",
-      nameserver: ["https://223.5.5.5/dns-query", "https://223.6.6.6/dns-query"],
-      fallback: [
-        "https://1.1.1.1/dns-query",
-        "https://8.8.8.8/dns-query",
-        "https://1.0.0.1/dns-query",
-        "https://8.8.4.4/dns-query",
+      "fake-ip-range": "198.18.0.1/16",
+      "cache-algorithm": "arc",
+      "default-nameserver": ["223.5.5.5", "223.6.6.6"],
+      nameserver: [
+        "https://223.5.5.5/dns-query#disable-qtype-64=true&disable-qtype-65=true",
+        "https://223.6.6.6/dns-query#disable-qtype-64=true&disable-qtype-65=true",
       ],
-      "disable-qtype-64": true,
-      "disable-qtype-65": true,
+      "proxy-server-nameserver": [
+        "https://223.5.5.5/dns-query#disable-qtype-64=true&disable-qtype-65=true",
+      ],
+      // fallback: [
+      //   "https://1.1.1.1/dns-query#disable-qtype-64=true&disable-qtype-65=true",
+      //   "https://8.8.8.8/dns-query#disable-qtype-64=true&disable-qtype-65=true",
+      // ],
+      // "fallback-filter": {
+      //   geoip: true,
+      //   "geoip-code": "CN",
+      // },
+      // "fallback-lazy-query": true,
     },
     "proxy-groups": [
       {
