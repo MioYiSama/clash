@@ -1,0 +1,25 @@
+{
+  "name": "clash",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate-rules": "oxnode src/generate-rules.ts"
+  },
+  "dependencies": {
+    "winston": "^3.19.0",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@oxc-node/cli": "^0.1.7",
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2",
+    "vite-plus": "^1.3.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.28.6",
+      "onFail": "download"
+    }
+  }
+}
