@@ -11,7 +11,6 @@ function main(config: any, _profileName: string) {
       "enhanced-mode": "fake-ip",
       "fake-ip-range": "198.18.0.1/16",
       "cache-algorithm": "arc",
-      "default-nameserver": ["223.5.5.5", "223.6.6.6"],
       nameserver: [
         "https://223.5.5.5/dns-query#disable-qtype-64=true&disable-qtype-65=true",
         "https://223.6.6.6/dns-query#disable-qtype-64=true&disable-qtype-65=true",
@@ -19,28 +18,17 @@ function main(config: any, _profileName: string) {
       "proxy-server-nameserver": [
         "https://223.5.5.5/dns-query#disable-qtype-64=true&disable-qtype-65=true",
       ],
-      // fallback: [
-      //   "https://1.1.1.1/dns-query#disable-qtype-64=true&disable-qtype-65=true",
-      //   "https://8.8.8.8/dns-query#disable-qtype-64=true&disable-qtype-65=true",
-      // ],
-      // "fallback-filter": {
-      //   geoip: true,
-      //   "geoip-code": "CN",
-      // },
-      // "fallback-lazy-query": true,
     },
     "proxy-groups": [
       {
         name: "DEFAULT",
         type: "select",
-        proxies: config["proxies"].map((proxy: any) => proxy.name),
+        proxies: config["proxies"].map((proxy: { name: string }) => proxy.name),
       },
       {
-        name: "US",
+        name: "AI",
         type: "select",
-        proxies: config["proxies"]
-          .filter((proxy: any) => proxy.name.includes("美国") || proxy.name.includes("🇺🇸"))
-          .map((proxy: any) => proxy.name),
+        proxies: config["proxies"].map((proxy: { name: string }) => proxy.name),
       },
     ],
 
@@ -48,13 +36,10 @@ function main(config: any, _profileName: string) {
       "SRC-PORT,22,DIRECT",
       "DST-PORT,22,DIRECT",
       "DOMAIN-SUFFIX,local,DIRECT",
-      "IP-CIDR,47.242.86.203/32,DIRECT",
       "IP-CIDR,115.220.1.205/32,DIRECT",
-      "IP-CIDR,43.133.43.22/32,DIRECT",
       "DOMAIN-SUFFIX,hf.co,DIRECT",
-      `DOMAIN-SUFFIX,tangbai.cc,DEFAULT`,
 
-      "RULE-SET,AI,US",
+      "RULE-SET,AI,AI",
       "RULE-SET,China,DIRECT",
       "RULE-SET,Global,DEFAULT",
 
