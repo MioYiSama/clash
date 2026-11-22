@@ -1,14 +1,43 @@
 payload:
   - DOMAIN-SUFFIX,claude.ai
-  - DOMAIN-SUFFIX,claude.com
   - DOMAIN-SUFFIX,anthropic.com
+  - DOMAIN-SUFFIX,claude.com
   - DOMAIN-SUFFIX,claudeusercontent.com
-  - DOMAIN-SUFFIX,challenges.cloudflare.com
-  - DOMAIN-SUFFIX,datadoghq.com
-  - DOMAIN-SUFFIX,segment.io
-  - DOMAIN-SUFFIX,stripe.com
-  - DOMAIN-SUFFIX,stripe.network
-  - DOMAIN-SUFFIX,stripecdn.com
+  - DOMAIN-SUFFIX,claude.app
+  - DOMAIN-SUFFIX,claudemcpcontent.com
+  - DOMAIN-SUFFIX,clau.de
   - DOMAIN-SUFFIX,intercom.io
   - DOMAIN-SUFFIX,intercomcdn.com
   - DOMAIN-SUFFIX,intercomassets.com
+  - DOMAIN-SUFFIX,intercom-messenger.com
+  - DOMAIN-SUFFIX,us5.datadoghq.com
+  - DOMAIN-SUFFIX,browser-intake-us5-datadoghq.com
+  - DOMAIN-SUFFIX,r.stripe.com
+  - DOMAIN-SUFFIX,us.sentry.io
+  - DOMAIN-SUFFIX,siftscience.com
+  - DOMAIN-SUFFIX,fcmtoken.googleapis.com
+  - DOMAIN-SUFFIX,claudemcpclient.com
+  - DOMAIN-SUFFIX,servd-anthropic-website.b-cdn.net
+  - DOMAIN-SUFFIX,anthropic.auth0.com
+  - DOMAIN-SUFFIX,anthropic-com.ghost.io
+  - DOMAIN-SUFFIX,anthropic.com.cdn.cloudflare.net
+  - DOMAIN-SUFFIX,claude.dev
+  - DOMAIN-SUFFIX,claude.site
+  - DOMAIN-SUFFIX,claudeacademy.com
+  - DOMAIN-SUFFIX,claude.new
+  - DOMAIN-SUFFIX,ant.dev
+  - DOMAIN-SUFFIX,anthropic.team
+  - DOMAIN-SUFFIX,antspace.dev
+  - DOMAIN-SUFFIX,chatbotclaude.com
+  - DOMAIN-SUFFIX,claudepages.dev
+  - DOMAIN-SUFFIX,claudestudio.com
+  - IP-CIDR,34.8.0.0/16
+  - IP-CIDR,160.79.104.0/21
+  - IP-CIDR,153.61.208.0/20
+  - IP-CIDR,153.61.224.0/22
+  - DOMAIN-SUFFIX,hcaptcha.com
+  - DOMAIN-SUFFIX,challenges.cloudflare.com
+  - DOMAIN-SUFFIX,withpersona.com
+  - DOMAIN-SUFFIX,yoti.com
+  - DOMAIN-SUFFIX,statsigapi.net
+  - DOMAIN-SUFFIX,usefathom.com
